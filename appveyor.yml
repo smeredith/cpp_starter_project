@@ -15,10 +15,16 @@ build_script:
 
     cmake c:\projects\source -G "Visual Studio 16 2019" -DCMAKE_BUILD_TYPE:STRING=Release
 
-    cmake --build . --config "Release" | python annotate.py --name "MSVC Build" --tool msvc --tee
+    cmake --build . --config "Release" | python annotate.py --tee --name "MSVC Log" --tool msvc
 test_script:
 - cmd: ctest -C Release
 
+
+on_failure:
+  - curl -s https://report.ci/annotate.py | python - --tool msvc --input build.log
+
 on_finish:
+  # Framework with autodetection
   - curl -s https://report.ci/upload.py | python
+
 
