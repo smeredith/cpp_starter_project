@@ -5,7 +5,7 @@ language: cpp
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+      - ppa:ubuntu-toolchain-r/test
     packages:
       - gcc-9
       - doxygen
