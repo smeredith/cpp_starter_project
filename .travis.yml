@@ -8,6 +8,7 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - gcc-9
+      - gcc-snapshot
       - doxygen
 
 install:
@@ -15,7 +16,9 @@ install:
 
 
 script:
-  - CXX=/usr/bin/gcc-9 CC=/usr/bin/g++-9 cmake -D ENABLE_COVERAGE:BOOL=TRUE . 
+  - ls /usr/bin/gcc*
+  - g++-9 --version
+  - CXX=/usr/bin/g++-9 CC=/usr/bin/gcc-9 cmake -D ENABLE_COVERAGE:BOOL=TRUE . 
   - cmake --build . -- -j2 
   - ctest -j2
   - bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-9
